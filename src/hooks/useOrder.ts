@@ -3,6 +3,7 @@ import { IdItem, MenuItem, OrderItem } from "../types"
 
 export default function useOrder() {
     const [order, setOrder] = useState<OrderItem[]>([])
+    const [tip, setTip] = useState(0)
     const addItem = (item: MenuItem) => {
         let newList = [...order]
         const p = newList.findIndex(currentItem => currentItem.id === item.id)
@@ -19,6 +20,8 @@ export default function useOrder() {
     return {
         order,
         addItem,
-        removeItem
+        removeItem,
+        tip,
+        setTip
     }
 }
