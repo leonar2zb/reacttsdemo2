@@ -13,5 +13,8 @@ export default function useOrder() {
         }
         setOrder(newList)
     }
-    return { addItem }
+    return {
+        order,
+        addItem
+    }
 }
