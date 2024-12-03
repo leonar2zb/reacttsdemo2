@@ -1,8 +1,12 @@
-function App() {
+import { menuItems } from "./data/db"
 
+function App() {
+  console.log(menuItems)
   return (
     <>
-      <h1 className="text-3xl font-bold underline bg-slate-950 text-yellow-300">Calculadora</h1>
+      <header className="bg-teal-400 py-5">
+        <h1 className="text-center text-4xl font-black">Calculadora de propinas</h1>
+      </header>
     </>
   )
 }
