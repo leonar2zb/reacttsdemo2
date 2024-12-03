@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { MenuItem, OrderItem } from "../types"
+import { IdItem, MenuItem, OrderItem } from "../types"
 
 export default function useOrder() {
     const [order, setOrder] = useState<OrderItem[]>([])
@@ -13,8 +13,12 @@ export default function useOrder() {
         }
         setOrder(newList)
     }
+
+    const removeItem = (id: IdItem) => setOrder(order.filter(item => item.id !== id))
+
     return {
         order,
-        addItem
+        addItem,
+        removeItem
     }
 }
