@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <header className="bg-teal-400 py-5">
-        <h1 className="text-center text-4xl font-black">Calculadora de propinas</h1>
+        <h1 className="text-center text-4xl font-black">Calculadora de Propinas</h1>
       </header>
       <main className="max-w-7xl mx-auto py-20 grid md:grid-cols-2">
         <div className="p-5">
@@ -34,7 +34,7 @@ function App() {
             <OrderContents order={order} removeItem={removeItem} />
             <TipPercentageForm setTip={setTip} tip={tip} />
             <OrderTotals order={order} tip={tip} placeOrder={placeOrder} />
-          </>) : (<p className="text-center">La orden está vacía</p>)}
+          </>) : (<p className="text-center">La orden está vacía. Seleccione sus productos</p>)}
         </div>
       </main>
     </>
