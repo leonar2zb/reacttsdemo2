@@ -9,13 +9,12 @@ import { useEffect } from "react"
 function App() {
   const { order, addItem, removeItem, tip, setTip, placeOrder } = useOrder()
   useEffect(() => {
-    // Este código se ejecuta después de cada renderizado 
     if (order.length === 0)
       setTip(0)
-    return () => {
+    /*return () => {
       // Cleanup opcional: Esto se ejecuta antes del siguiente efecto o cuando el componente se desmonta 
       console.log('Cleanup');
-    };
+    };*/
   }, [order]);
 
   return (
