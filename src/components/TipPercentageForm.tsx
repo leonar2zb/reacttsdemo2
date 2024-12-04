@@ -17,20 +17,25 @@ const tipOptions = [
 ]
 
 type TipPercentageFormProps = {
-    setTip: React.Dispatch<React.SetStateAction<number>>
+    setTip: React.Dispatch<React.SetStateAction<number>>,
+    tip: number
 }
 
-export default function TipPercentageForm({ setTip }: TipPercentageFormProps) {
+export default function TipPercentageForm({ setTip, tip }: TipPercentageFormProps) {
     return (
         <div>
             <h3 className="font-black text-2xl">Propina:</h3>
             <form>
-                {tipOptions.map(tip => (
-                    <div key={tip.id} className="flex gap-2">
-                        <label htmlFor={tip.id}>{tip.label}</label>
+                {tipOptions.map(tipOption => (
+                    <div key={tipOption.id} className="flex gap-2">
+                        <label htmlFor={tipOption.id}>{tipOption.label}</label>
                         {/* nota: se sugiere utilizar el objeto event previendo no exista propiedad value(según curso pero no me queda claro) el signo + es para obligarlo a number pq es string*/}
-                        <input id={tip.id} name="tip" type="radio" value={tip.value} onChange={(e) => setTip(+e.target.value)} />
-                        {/* <input id={tip.id} name="tip" type="radio" value={tip.value} onChange={() => setTip(tip.value)} /> */}
+                        <input id={tipOption.id}
+                            name="tip" type="radio"
+                            value={tipOption.value}
+                            checked={tipOption.value === tip}
+                            onChange={(e) => setTip(+e.target.value)} />
+                        {/* <input id={tipOption.id} name="tip" type="radio" value={tipOption.value} onChange={() => setTip(tipOption.value)} /> */}
                     </div>))}
 
             </form>
