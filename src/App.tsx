@@ -1,25 +1,14 @@
 import MenuItem from "./components/MenuItem"
 import { menuItems } from "./data/db"
-import useOrder from "./hooks/useOrder"
 import OrderContents from "./components/OrderContents"
 import OrderTotals from "./components/OrderTotals"
 import TipPercentageForm from "./components/TipPercentageForm"
-import { useEffect, useReducer } from "react"
+import { useReducer } from "react"
 import { initialState, orderReducer } from "./reducers/order-reducer"
 
-function App() {
-  const { order, addItem, removeItem, tip, setTip, placeOrder } = useOrder()
+function App() {  
 
-  const [state, dispatch] = useReducer(orderReducer, initialState)
-
-  useEffect(() => {
-    if (order.length === 0)
-      setTip(0)
-    /*return () => {
-      // Cleanup opcional: Esto se ejecuta antes del siguiente efecto o cuando el componente se desmonta 
-      console.log('Cleanup');
-    };*/
-  }, [order]);
+  const [state, dispatch] = useReducer(orderReducer, initialState)  
 
   return (
     <>
@@ -37,7 +26,7 @@ function App() {
           {state.order.length > 0 ? (<>
             <OrderContents order={state.order} dispatch={dispatch} />
             <TipPercentageForm tip={state.tip} dispatch={dispatch} />
-            <OrderTotals order={state.order} tip={state.tip} placeOrder={placeOrder} />
+            <OrderTotals order={state.order} tip={state.tip} dispatch={dispatch} />
           </>) : (<p className="text-center">La orden está vacía. Seleccione sus productos</p>)}
         </div>
       </main>
