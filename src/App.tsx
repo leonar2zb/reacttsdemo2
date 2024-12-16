@@ -6,14 +6,15 @@ import TipPercentageForm from "./components/TipPercentageForm"
 import { useReducer } from "react"
 import { initialState, orderReducer } from "./reducers/order-reducer"
 
-function App() {  
+function App() {
 
-  const [state, dispatch] = useReducer(orderReducer, initialState)  
+  const [state, dispatch] = useReducer(orderReducer, initialState)
 
   return (
     <>
       <header className="bg-teal-400 py-5">
         <h1 className="text-center text-4xl font-black">Calculadora de Propinas</h1>
+        <span className="float-end text-xs text-blue-600 underline mr-3 -mt-5"><a href="https://github.com/leonar2zb/reacttsdemo2" target="_blank">fuente en Github</a></span>
       </header>
       <main className="max-w-7xl mx-auto py-20 grid md:grid-cols-2">
         <div className="p-5">
