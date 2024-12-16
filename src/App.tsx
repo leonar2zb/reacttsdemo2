@@ -36,8 +36,8 @@ function App() {
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
           {state.order.length > 0 ? (<>
             <OrderContents order={state.order} dispatch={dispatch} />
-            <TipPercentageForm setTip={setTip} tip={tip} />
-            <OrderTotals order={state.order} tip={tip} placeOrder={placeOrder} />
+            <TipPercentageForm tip={state.tip} dispatch={dispatch} />
+            <OrderTotals order={state.order} tip={state.tip} placeOrder={placeOrder} />
           </>) : (<p className="text-center">La orden está vacía. Seleccione sus productos</p>)}
         </div>
       </main>
