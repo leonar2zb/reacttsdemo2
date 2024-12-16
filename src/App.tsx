@@ -4,10 +4,14 @@ import useOrder from "./hooks/useOrder"
 import OrderContents from "./components/OrderContents"
 import OrderTotals from "./components/OrderTotals"
 import TipPercentageForm from "./components/TipPercentageForm"
-import { useEffect } from "react"
+import { useEffect, useReducer } from "react"
+import { initialState, orderReducer } from "./reducers/order-reducer"
 
 function App() {
   const { order, addItem, removeItem, tip, setTip, placeOrder } = useOrder()
+
+  const [state, dispatch] = useReducer(orderReducer, initialState)
+
   useEffect(() => {
     if (order.length === 0)
       setTip(0)
