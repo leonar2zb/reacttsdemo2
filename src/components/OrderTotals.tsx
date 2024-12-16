@@ -1,4 +1,4 @@
-import { Dispatch, useMemo, ChangeEvent, MouseEvent, useState } from "react";
+import { Dispatch, useMemo, MouseEvent, useState } from "react";
 import { formatCurrency } from "../helpers";
 import { OrderItem } from "../types";
 import { OrderActions } from "../reducers/order-reducer";
@@ -10,7 +10,7 @@ type OrderTotalsProps = {
 }
 
 export default function OrderTotals({ order, tip, dispatch }: OrderTotalsProps) {
-    const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => setPersistent(!persistent);
+    const handleCheckboxChange = () => setPersistent(!persistent);
     const handleStopPropagation = (event: MouseEvent<HTMLInputElement> | MouseEvent<HTMLLabelElement>) => { event.stopPropagation(); };
 
     const [persistent, setPersistent] = useState<boolean>(false)
