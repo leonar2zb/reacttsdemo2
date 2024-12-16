@@ -34,10 +34,10 @@ function App() {
           </div>
         </div>
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
-          {order.length > 0 ? (<>
-            <OrderContents order={order} removeItem={removeItem} />
+          {state.order.length > 0 ? (<>
+            <OrderContents order={state.order} removeItem={removeItem} />
             <TipPercentageForm setTip={setTip} tip={tip} />
-            <OrderTotals order={order} tip={tip} placeOrder={placeOrder} />
+            <OrderTotals order={state.order} tip={tip} placeOrder={placeOrder} />
           </>) : (<p className="text-center">La orden está vacía. Seleccione sus productos</p>)}
         </div>
       </main>
