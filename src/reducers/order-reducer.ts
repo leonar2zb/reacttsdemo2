@@ -4,6 +4,7 @@ export type OrderActions =
     { type: 'add-item', payload: { item: MenuItem } } |
     { type: 'remove-item', payload: { id: IdItem } } |
     { type: 'place-order' } |
+    { type: 'clear-order', payload: { persistent: boolean } } |
     { type: 'add-tip', payload: { value: number } }
 
 export type OrderState = {
@@ -11,10 +12,12 @@ export type OrderState = {
     tip: number
 }
 
-export const initialState: OrderState = {
-    order: [],
-    tip: 0
+const getFromLocalStorage = () => {
+    const dataStr = localStorage.getItem('orders')
+    return dataStr ? <OrderState>JSON.parse(dataStr) : { order: [], tip: 0 }
 }
+
+export const initialState: OrderState = getFromLocalStorage()
 
 export const orderReducer = (state: OrderState = initialState, action: OrderActions) => {
     if (action.type === 'add-item') {
@@ -42,8 +45,17 @@ export const orderReducer = (state: OrderState = initialState, action: OrderActi
     }
 
     if (action.type === 'place-order') {
+        localStorage.setItem('orders', JSON.stringify(state))
         return {
-            ...initialState
+            ...state
+        }
+    }
+
+    if (action.type === 'clear-order') {
+        if (action.payload.persistent)
+            localStorage.removeItem('orders')
+        return {
+            order: [], tip: 0
         }
     }
 

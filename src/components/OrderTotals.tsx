@@ -1,4 +1,4 @@
-import { Dispatch, useMemo } from "react";
+import { Dispatch, useMemo, ChangeEvent, MouseEvent, useState } from "react";
 import { formatCurrency } from "../helpers";
 import { OrderItem } from "../types";
 import { OrderActions } from "../reducers/order-reducer";
@@ -10,6 +10,11 @@ type OrderTotalsProps = {
 }
 
 export default function OrderTotals({ order, tip, dispatch }: OrderTotalsProps) {
+    const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => setPersistent(!persistent);
+    const handleStopPropagation = (event: MouseEvent<HTMLInputElement> | MouseEvent<HTMLLabelElement>) => { event.stopPropagation(); };
+
+    const [persistent, setPersistent] = useState<boolean>(false)
+
     const subTotal = useMemo(() => order.reduce((total, item) => total + (item.quantity * item.price), 0), [order])
     const tipAmount = useMemo(() => subTotal * tip, [tip, order])
     // en este tercer caso se pudiera utilizar useMemo de forma similar a tipAmount, sin embargo considero innecesario pues depende de valores ya controlados
@@ -30,8 +35,16 @@ export default function OrderTotals({ order, tip, dispatch }: OrderTotalsProps) 
             </p>
 
         </div>
-        <button className="w-full bg-black text-white uppercase rounded-md font-bold mt-10 p-3 disabled:opacity-30" disabled={totalAmount === 0} onClick={() => dispatch({ type: 'place-order' })}>
-            Guardar orden
-        </button>
+        <div>
+            <button className="w-full bg-green-500 text-white uppercase rounded-md font-bold mt-1 p-3 disabled:opacity-30" disabled={totalAmount === 0} onClick={() => dispatch({ type: 'place-order' })}>
+                Guardar orden
+            </button>
+            <button className="w-full bg-red-600 text-white uppercase rounded-md font-bold mt-3 p-3 disabled:opacity-30" disabled={totalAmount === 0}
+                onClick={() => dispatch({ type: 'clear-order', payload: { persistent } })} title={`Eliminará en ${persistent ? 'almacenamiento y memoria' : ' la memoria solamente'}`} >
+                Vaciar la orden
+                <label htmlFor="emptyStorage" className="text-xs normal-case ml-1 float-end" onClick={handleStopPropagation} title="Marque para eliminar también en el almacenamiento" >Permanente</label>
+                <input type="checkbox" className="float-end" name="emptyStorage" id="emptyStorage" onChange={handleCheckboxChange} checked={persistent} onClick={handleStopPropagation} />
+            </button>
+        </div>
     </>)
 }
